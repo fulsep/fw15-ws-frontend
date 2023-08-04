@@ -9,7 +9,9 @@ function App() {
 
   React.useEffect(()=>{
     socket.on("sendMessage", (message)=>{
-      setMessages([...messages, message])
+      const msg = [...messages]
+      msg.push(message)
+      setMessages(msg)
     })
   },[messages])
 
@@ -19,6 +21,7 @@ function App() {
       window.login_modal.showModal()
     }else{
       socket.emit('message', {user, message: e.target.message.value })
+      e.target.message.value = ''
     }
   }
 
